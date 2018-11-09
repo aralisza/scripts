@@ -72,7 +72,7 @@ def splitReceipt(items, total, subtotal, debug):
         print()
 
     for person, totals in final_totals.items():
-        print("{}: {}".format(person, round(totals["total"], 2)))
+        print("{}:\t{}".format(person, round(totals["total"], 2)))
 
 if __name__ == '__main__':
     if sys.version_info[0] < 3:
