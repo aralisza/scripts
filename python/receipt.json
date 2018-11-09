@@ -1,0 +1,36 @@
+{
+    "subtotal": 85.20,
+    "total": 105.0,
+    "items": [
+        {
+            "name": "shrimp tempura",
+            "cost": 7.95,
+            "people": null
+        },
+        {
+            "name": "chicken katsu",
+            "cost": 14.95,
+            "people": ["emily"]
+        },
+        {
+            "name": "pork katsu",
+            "cost": 29.9,
+            "people": ["mimi", "eva"]
+        },
+        {
+            "name": "tempura noodles",
+            "cost": 12.95,
+            "people": ["zoe"]
+        },
+        {
+            "name": "boiled egg",
+            "cost": 1.5,
+            "people": ["zoe"]
+        },
+        {
+            "name": "miso salmon",
+            "cost": 17.95,
+            "people": ["eddie"]
+        }
+    ]
+}
