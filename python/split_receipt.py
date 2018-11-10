@@ -2,6 +2,15 @@ import argparse
 from math import isclose
 import json
 import sys
+import re
+
+def readFloat(str):
+    response = input(str)
+    try:
+        return float(response)
+    except:
+        print("Input {} is not a number. Try again.\n".format(response))
+        return readFloat(str)
 
 def splitReceipt(items, total, subtotal, debug):
     subtotals = {}
@@ -81,18 +90,39 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Splits the given check')
 
     parser.add_argument('-d', '--debug', action='store_true')
+    parser.add_argument('-i', '--interactive', action='store_true')
     parser.add_argument('-f', '--file', type=str)
 
     args = parser.parse_args()
 
     debug = args.debug
-    file = args.file
 
-    if file:
-        with open(file) as json_file:
+    if args.file:
+        with open(args.file) as json_file:
             data = json.load(json_file)
             subtotal = data["subtotal"] if "subtotal" in data else None
             splitReceipt(data["items"], data["total"], subtotal, debug)
+    elif args.interactive:
+        items = []
+        total = readFloat("What is the total?:")
+        subtotal = readFloat("What is the subtotal?")
+        while True:
+            print()
+            print("Enter a line item:")
+            item = {}
+            item["name"] = input("What is the item called? (optional):")
+            item["cost"] = readFloat("What did it cost?:")
+            print("Who is splitting it?")
+            people = input("Comma delimited names. (default: split between everyone):")
+            item["people"] = re.compile(", *").split(people) if people else None
+            items.append(item)
+
+            if (input("No more items? (yes/no, default: no)") == "yes"):
+                break
+
+        print("Input:")
+        print(json.dumps({ "subtotal": subtotal, "total": total, "items": items }, indent=4))
+        splitReceipt(items, total, subtotal, debug)
     else:
         data = json.load(sys.stdin)
         subtotal = data["subtotal"] if "subtotal" in data else None
