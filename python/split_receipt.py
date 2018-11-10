@@ -104,16 +104,16 @@ if __name__ == '__main__':
             splitReceipt(data["items"], data["total"], subtotal, debug)
     elif args.interactive:
         items = []
-        total = readFloat("What is the total?:")
-        subtotal = readFloat("What is the subtotal?")
+        total = readFloat("What is the total?: ")
+        subtotal = readFloat("What is the subtotal?: ")
         while True:
             print()
             print("Enter a line item:")
             item = {}
-            item["name"] = input("What is the item called? (optional):")
-            item["cost"] = readFloat("What did it cost?:")
+            item["name"] = input("What is the item called? (optional): ")
+            item["cost"] = readFloat("What did it cost?: ")
             print("Who is splitting it?")
-            people = input("Comma delimited names. (default: split between everyone):")
+            people = input("Comma delimited names. (default: split between everyone): ")
             item["people"] = re.compile(", *").split(people) if people else None
             items.append(item)
 
